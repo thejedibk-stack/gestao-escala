@@ -1,3 +1,6 @@
+tao escala · HTML
+Copiar
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -71,15 +74,15 @@ footer{text-align:center;color:#94a3b8;font-size:11px;padding:16px 0;max-width:6
 </style>
 </head>
 <body>
-
+ 
 <h1>Gestão de Escala</h1>
-
+ 
 <div class="tabs">
   <button id="tab-visao"  class="tab active" onclick="showTab('visao')">Visão Geral</button>
   <button id="tab-equipe" class="tab"         onclick="showTab('equipe')">Equipe</button>
   <button id="tab-config" class="tab"         onclick="showTab('config')">Configurações</button>
 </div>
-
+ 
 <!-- VISÃO GERAL -->
 <div id="sec-visao" class="section active">
   <div class="card">
@@ -101,14 +104,14 @@ footer{text-align:center;color:#94a3b8;font-size:11px;padding:16px 0;max-width:6
     </div>
   </div>
 </div>
-
+ 
 <!-- EQUIPE -->
 <div id="sec-equipe" class="section">
   <div class="card">
     <div id="equipe-content"><p style="color:#94a3b8;font-size:13px;text-align:center;padding:2rem 0;">Configure as escalas na aba Configurações</p></div>
   </div>
 </div>
-
+ 
 <!-- CONFIG -->
 <div id="sec-config" class="section">
   <div class="card">
@@ -118,10 +121,10 @@ footer{text-align:center;color:#94a3b8;font-size:11px;padding:16px 0;max-width:6
       <span id="restante-label" style="font-size:12px;color:#64748b;white-space:nowrap;"></span>
     </div>
   </div>
-
+ 
   <div class="card">
     <p style="font-size:12px;font-weight:600;color:#0f172a;margin-bottom:12px;">Distribuição por escala</p>
-
+ 
     <div class="dist-box" style="margin-bottom:8px;">
       <div class="dist-title">4×2×4</div>
       <div class="grid2" style="margin:8px 0 10px;">
@@ -140,7 +143,7 @@ footer{text-align:center;color:#94a3b8;font-size:11px;padding:16px 0;max-width:6
       <input id="q-4x2x4" type="number" min="0" step="5" placeholder="0" oninput="updateCheck()">
       <div id="w-4x2x4" class="warn"></div>
     </div>
-
+ 
     <div class="grid2">
       <div class="dist-box">
         <div class="dist-title">4×2-6×4</div>
@@ -167,23 +170,23 @@ footer{text-align:center;color:#94a3b8;font-size:11px;padding:16px 0;max-width:6
     </div>
     <div id="dist-check" class="check-msg"></div>
   </div>
-
+ 
   <div style="display:flex;gap:8px;margin-bottom:1rem;max-width:600px;margin-left:auto;margin-right:auto;">
     <button class="btn btn-primary" style="flex:1;" onclick="applyDistribution()">Aplicar distribuição</button>
     <button class="btn btn-ghost btn-sm" onclick="clearAll()">Limpar</button>
   </div>
 </div>
-
+ 
 <footer>Developed by B.T.B.</footer>
-
+ 
 <script>
 const TODAY_REF=new Date(2026,4,4);
 const MESES_PT=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DIAS_PT=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
-
+ 
 const CFGS={'5':{letras:['B','E','C-G','H','T'],mult:5},'10':{letras:['A','B','C','D','E','F','G','H','I','T'],mult:10}};
 let selected4='5';
-
+ 
 // 4x2x4 — ciclo 10
 const C10_M =['M','M','M','M','N','N','F','F','F','F'];
 const C10_T =['T','T','T','T','N','N','F','F','F','F'];
@@ -191,23 +194,23 @@ const C10_CG=['M','M','T','T','N','N','F','F','F','F'];
 const POS10={A:4,B:0,C:2,D:8,E:6,F:6,G:2,H:4,I:0,T:8,'C-G':2};
 const GRP_M10=new Set(['A','B','C','D','E']);
 const GRP_T10=new Set(['F','G','H','I','T']);
-
+ 
 // 4x1x3 — ciclo 8
 const C8_M=['M','M','M','M','N','F','F','F'];
 const C8_T=['T','T','T','T','N','F','F','F'];
 const POS8={O:6,P:2,Q:4,R:0,V:1,X:5,Y:7,Z:3};
 const GRP_M8=new Set(['O','P','Q','R']);
-
+ 
 // 4x2-6x4 — ciclo 16: WWWWFFWWWWWWFFFF
 // Posições defasadas de 2 em 2 → 5 trabalhando / 3 folgando por turno todos os dias
 const C16=['W','W','W','W','F','F','W','W','W','W','W','W','F','F','F','F'];
 const POS16={AM:0,BM:2,CM:4,DM:6,EM:8,FM:10,GM:12,HM:14,
              AT:0,BT:2,CT:4,DT:6,ET:8,FT:10,GT:12,HT:14};
-
+ 
 // Semanal
 const CS_M={0:'F',1:'M',2:'M',3:'M',4:'M',5:'M',6:'F'};
 const CS_T={0:'F',1:'T',2:'T',3:'T',4:'T',5:'T',6:'F'};
-
+ 
 function getTurno(date,letra,escala){
   const diff=Math.round((date-TODAY_REF)/86400000);
   if(escala==='semM') return CS_M[date.getDay()];
@@ -223,7 +226,7 @@ function getTurno(date,letra,escala){
   }
   return 'F';
 }
-
+ 
 function selectCfg(v){
   selected4=v;
   document.getElementById('opt-5').className='opt-card'+(v==='5'?'':' inactive');
@@ -233,18 +236,18 @@ function selectCfg(v){
   document.getElementById('q-4x2x4').step=mult;
   updateCheck();
 }
-
+ 
 let weekOffset=0,distribution={},savedConfig={};
-
+ 
 function showTab(t){
   ['visao','equipe','config'].forEach(id=>{
     document.getElementById('sec-'+id).className='section'+(id===t?' active':'');
     document.getElementById('tab-'+id).className='tab'+(id===t?' active':'');
   });
 }
-
+ 
 function getVal(id){return parseInt(document.getElementById(id).value)||0;}
-
+ 
 function updateCheck(){
   const total=getVal('total-emp'),q4=getVal('q-4x2x4'),q6=getVal('q-4x2x6x4'),q1=getVal('q-4x1x3'),qSM=getVal('q-semM'),qST=getVal('q-semT');
   const mult4=CFGS[selected4].mult;
@@ -261,7 +264,7 @@ function updateCheck(){
   else if(total>0) chk.innerHTML='<span style="color:#16a34a;">Distribuição completa ('+soma+' / '+total+')</span>';
   else chk.textContent='';
 }
-
+ 
 function applyDistribution(){
   const total=getVal('total-emp'),q4=getVal('q-4x2x4'),q6=getVal('q-4x2x6x4'),q1=getVal('q-4x1x3'),qSM=getVal('q-semM'),qST=getVal('q-semT');
   const soma=q4+q6+q1+qSM+qST;
@@ -279,12 +282,12 @@ function applyDistribution(){
   if(qST>0) distribution['semT']={'SEM-T':qST};
   renderEquipe();renderVisao();
 }
-
+ 
 function clearAll(){
   ['total-emp','q-4x2x4','q-4x2x6x4','q-4x1x3','q-semM','q-semT'].forEach(id=>document.getElementById(id).value='');
   distribution={};savedConfig={};selectCfg('5');updateCheck();renderEquipe();renderVisao();
 }
-
+ 
 function renderEquipe(){
   const el=document.getElementById('equipe-content');
   const keys=Object.keys(distribution);
@@ -309,14 +312,14 @@ function renderEquipe(){
   });
   el.innerHTML=html;
 }
-
+ 
 function getMondayOfWeek(offset){
   const d=new Date(),day=d.getDay();
   const diff=d.getDate()-day+(day===0?-6:1)+offset*7;
   const mon=new Date(d);mon.setDate(diff);mon.setHours(0,0,0,0);return mon;
 }
 function changeWeek(d){weekOffset+=d;renderVisao();}
-
+ 
 function renderVisao(){
   const mon=getMondayOfWeek(weekOffset);
   const sun=new Date(mon);sun.setDate(mon.getDate()+6);
@@ -366,9 +369,9 @@ function renderVisao(){
   document.getElementById('avg-N').textContent=Math.round(totN/7);
   document.getElementById('avg-F').textContent=Math.round(totF/7);
 }
-
-
-
+ 
+ 
+ 
 selectCfg('5');
 renderVisao();
 </script>
